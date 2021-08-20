@@ -11,6 +11,8 @@ body {
   border: 1px solid #2c3e50;
   cursor: pointer;
   padding: 4px;
+  text-decoration:none;
+  color: #2c3e50;
 }
 
 .button-visibility:hover {
