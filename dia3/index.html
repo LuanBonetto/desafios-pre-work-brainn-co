@@ -7,33 +7,37 @@
     <title>Dia 3</title>
   </head>
   <body>
-    <form data-js="form">
-      <input data-js="name" type="text" />
-    </form>
-    <form data-js="form-cars">
-      <label for="image">Imagem(URL)</label>
-      <input type="text" name="image" id="image" />
-      <label for="model">Marca / Modelo</label>
-      <input type="text" name="model" id="model" />
-      <label for="year">Ano</label>
-      <input type="number" name="year" id="year" />
-      <label for="plate">Placa</label>
-      <input type="text" name="plate" id="plate" />
-      <label for="color">Cor</label>
-      <input type="text" name="color" id="color" />
-      <button type="submit" >Salvar</button>
-    </form>
-    <table data-js="table-cars">
-      <tbody>
-        <tr>
-          <th>Imagem</th>
-          <th>Marca / Modelo</th>
-          <th>Ano</th>
-          <th>Placa</th>
-          <th>Cor</th>
-        </tr>
-      </tbody>
-    </table>
+    <div id="app">
+      <form data-js="form">
+        <input data-js="name" type="text" placeholder="Insira aqui um nome" class="name" />
+      </form>
+
+      <form data-js="form-cars" class="form-cars">
+        <label for="image">Imagem(URL)</label>
+        <input type="text" name="image" id="image" />
+        <label for="model">Marca / Modelo</label>
+        <input type="text" name="model" id="model" />
+        <label for="year">Ano</label>
+        <input type="number" name="year" id="year" />
+        <label for="plate">Placa</label>
+        <input type="text" name="plate" id="plate" />
+        <label for="color">Cor</label>
+        <input type="text" name="color" id="color" />
+        <button type="submit" >Salvar</button>
+      </form>
+
+      <table data-js="table-cars">
+        <tbody>
+          <tr>
+            <th>Imagem</th>
+            <th>Marca / Modelo</th>
+            <th>Ano</th>
+            <th>Placa</th>
+            <th>Cor</th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

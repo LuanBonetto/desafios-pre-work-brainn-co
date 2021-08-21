@@ -73,3 +73,5 @@ selectColors.addEventListener("change", (event) => {
     divColors.appendChild(square)
   }
 })
+
+form.addEventListener("submit", (event) => event.preventDefault())
