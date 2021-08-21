@@ -67,7 +67,6 @@ selectColors.addEventListener("change", (event) => {
   divColors.innerHTML = ''
 
   for (let i = 0; i < selectedColors.length; i++) {
-    console.log(selectedColors.item(i).value)
     const square = document.createElement("div")
     square.className = "square-color"
     square.style.background = selectedColors.item(i).value
