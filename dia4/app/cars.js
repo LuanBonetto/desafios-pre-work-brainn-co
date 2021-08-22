@@ -16,6 +16,25 @@ const request = async ({ url, method, data }) => {
   })
 }
 
+function showMessage({ message, type }) {
+  const snackbar = document.getElementById("snackbar");
+
+  let { className } = snackbar
+  className = "show"
+
+  if (type === "success") {
+    snackbar.className = `${className} success`
+  }
+
+  if (type === "error") {
+    snackbar.className = `${className} error`
+  }
+
+  snackbar.textContent = message
+
+  setTimeout(() => { snackbar.className = snackbar.className.replace("show", "") }, 3000)
+}
+
 const insertNewCar = (car) => {
   tableCars.insertAdjacentHTML('beforeend', `
     <tr data-js="car-table-row">
@@ -24,28 +43,10 @@ const insertNewCar = (car) => {
       <td>${car.year}</td>
       <td>${car.plate}</td>
       <td>${car.color}</td>
+      <td><button data-js="button-delete" data-plate="${car.plate}" type="button">Deletar</button></td>
     </tr>
   `)
 }
-
-form.addEventListener("submit", async (event) => {
-  event.preventDefault()
-  let newCar = {}
-
-  const inputs = event.target.querySelectorAll('input')
-  for (let i = 0; i < inputs.length; i++) {
-    const { name, value } = inputs.item(i)
-    newCar = {
-      ...newCar,
-      [name]: value
-    }
-  }
-  const isRegistered = await registerNewCar(newCar)
-  if(isRegistered){
-    event.target.reset()
-    event.target.querySelector('#image').focus()
-  }
-})
 
 const getCars = async () => {
   try {
@@ -57,30 +58,41 @@ const getCars = async () => {
     if (cars.length === 0) {
       tableCars.insertAdjacentHTML('beforeend', `
         <tr class="empty-message">
-          <td></td>
-          <td></td>
-          <td>Nenhum carro encontrado</td>
-          <td></td>
-          <td></td>
+          <td colspan="6">Nenhum carro encontrado</td>
         </tr>
       `)
     }
 
     const rowEmptyMessage = document.querySelector('.empty-message')
-    if(cars.length > 0 && rowEmptyMessage){
+    if (cars.length > 0 && rowEmptyMessage) {
       tableCars.removeChild(rowEmptyMessage)
     }
 
     const rows = document.querySelectorAll('[data-js="car-table-row"]')
 
-    if (rows.length > 0) {
+    if (rows) {
       for (let i = 0; i < rows.length; i++) {
         const rowCar = rows.item(i)
         tableCars.removeChild(rowCar)
       }
     }
 
-    cars.forEach((car) => insertNewCar(car))
+    if (cars.length > 0) {
+      cars.forEach((car) => insertNewCar(car))
+      const allButtonDelete = document.querySelectorAll('[data-js="button-delete"]')
+
+      if (allButtonDelete) {
+        for (let i = 0; i < allButtonDelete.length; i++) {
+          const button = allButtonDelete.item(i)
+
+          button.addEventListener('click', (event) => {
+
+            const plate = button.getAttribute('data-plate')
+            deleteCar(plate)
+          })
+        }
+      }
+    }
 
   } catch (error) {
     showMessage({
@@ -105,7 +117,7 @@ const registerNewCar = async (newCar) => {
       type: 'success'
     })
 
-    return
+    return true
 
   } catch (error) {
     showMessage({
@@ -116,23 +128,45 @@ const registerNewCar = async (newCar) => {
   }
 }
 
-function showMessage({message, type}) {
-  const snackbar = document.getElementById("snackbar");
+const deleteCar = async (plate) => {
+  try {
+    const response = await request({
+      url: baseURL,
+      method: 'DELETE',
+      data: { plate }
+    })
 
-  let {className} = snackbar
-  className = "show"
+    showMessage({
+      message: response.message,
+      type: 'success'
+    })
 
-  if(type === "success"){
-    snackbar.className = `${className} success`
+    getCars()
+  } catch (error) {
+    showMessage({
+      message: error.message,
+      type: 'error'
+    })
   }
-
-  if(type === "error"){
-    snackbar.className = `${className} error`
-  }
-
-  snackbar.textContent = message
-
-  setTimeout(() => { snackbar.className = snackbar.className.replace("show", "") }, 3000)
 }
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault()
+  let newCar = {}
+
+  const inputs = event.target.querySelectorAll('input')
+  for (let i = 0; i < inputs.length; i++) {
+    const { name, value } = inputs.item(i)
+    newCar = {
+      ...newCar,
+      [name]: value
+    }
+  }
+  const isRegistered = await registerNewCar(newCar)
+  if (isRegistered) {
+    event.target.reset()
+    event.target.querySelector('#image').focus()
+  }
+})
 
 getCars()

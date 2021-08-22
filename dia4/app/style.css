@@ -47,7 +47,7 @@ table, th, td {
 }
 
 th, td {
-  width: 200px;
+  width: calc(1000px / 6);
   text-align: center;
 }
 
@@ -59,8 +59,18 @@ td > img {
 
 tr.empty-message > td {
   border: none;
-  color: red;
+  color: #dc3545;
   padding: 20px 0;
+}
+
+[data-js="button-delete"] {
+  border: none;
+  background-color: #dc3545;
+  color: #fff;
+  padding: 8px 10px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 
