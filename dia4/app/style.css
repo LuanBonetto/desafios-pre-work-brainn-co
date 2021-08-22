@@ -6,3 +6,54 @@ body {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+input {
+  height: 30px;
+  padding: 0 10px;
+  font-size: 16px;
+}
+
+[data-js="form-cars"] {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 500px;
+  margin: 0 auto 40px auto;
+}
+
+.form-cars > label {
+  margin-bottom: 10px;
+}
+
+.form-cars > input {
+  margin-bottom: 10px;
+}
+
+.form-cars > button {
+  height: 40px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+[data-js="table-cars"] {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 1000px;
+  margin: 0 auto 100px auto;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+th, td {
+  width: 200px;
+  text-align: center;
+}
+
+td > img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}

@@ -1,12 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dia 4</title>
-  </head>
-  <body>
-    <script type="module" src="/main.js"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dia 4</title>
+</head>
+
+<body>
+  <form data-js="form-cars" class="form-cars">
+    <label for="image">Imagem(URL)</label>
+    <input type="text" name="image" id="image" />
+    <label for="model">Marca / Modelo</label>
+    <input type="text" name="model" id="model" />
+    <label for="year">Ano</label>
+    <input type="number" name="year" id="year" />
+    <label for="plate">Placa</label>
+    <input type="text" name="plate" id="plate" />
+    <label for="color">Cor</label>
+    <input type="text" name="color" id="color" />
+    <button type="submit">Salvar</button>
+  </form>
+
+  <table data-js="table-cars">
+    <tbody>
+      <tr>
+        <th>Imagem</th>
+        <th>Marca / Modelo</th>
+        <th>Ano</th>
+        <th>Placa</th>
+        <th>Cor</th>
+      </tr>
+    </tbody>
+  </table>
+  <script type="module" src="/main.js"></script>
+</body>
+
 </html>
