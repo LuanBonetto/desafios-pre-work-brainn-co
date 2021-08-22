@@ -28,7 +28,7 @@ const insertNewCar = (car) => {
   `)
 }
 
-form.addEventListener("submit", (event) => {
+form.addEventListener("submit", async (event) => {
   event.preventDefault()
   let newCar = {}
 
@@ -40,9 +40,11 @@ form.addEventListener("submit", (event) => {
       [name]: value
     }
   }
-  registerNewCar(newCar)
-  event.target.reset()
-  event.target.querySelector('#image').focus()
+  const isRegistered = await registerNewCar(newCar)
+  if(isRegistered){
+    event.target.reset()
+    event.target.querySelector('#image').focus()
+  }
 })
 
 const getCars = async () => {
@@ -81,7 +83,10 @@ const getCars = async () => {
     cars.forEach((car) => insertNewCar(car))
 
   } catch (error) {
-    console.log(error)
+    showMessage({
+      message: error.message,
+      type: 'error'
+    })
   }
 }
 
@@ -95,9 +100,39 @@ const registerNewCar = async (newCar) => {
 
     getCars()
 
-  } catch (err) {
-    console.log(err.message)
+    showMessage({
+      message: response.message,
+      type: 'success'
+    })
+
+    return
+
+  } catch (error) {
+    showMessage({
+      message: error.message,
+      type: 'error'
+    })
+    return false
   }
+}
+
+function showMessage({message, type}) {
+  const snackbar = document.getElementById("snackbar");
+
+  let {className} = snackbar
+  className = "show"
+
+  if(type === "success"){
+    snackbar.className = `${className} success`
+  }
+
+  if(type === "error"){
+    snackbar.className = `${className} error`
+  }
+
+  snackbar.textContent = message
+
+  setTimeout(() => { snackbar.className = snackbar.className.replace("show", "") }, 3000)
 }
 
 getCars()
